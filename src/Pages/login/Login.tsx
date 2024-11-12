@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 //
 export const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassowrd] = useState("");
+  const [password, setpassword] = useState("");
+
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
     console.log(email);
@@ -28,6 +30,9 @@ export const Login = () => {
           <input
             type="text"
             value={email}
+            onKeyDown={(e) =>
+              e.key === "Enter" ? inputPasswordRef.current?.focus() : undefined
+            }
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
@@ -36,7 +41,8 @@ export const Login = () => {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassowrd(e.target.value)}
+            ref={inputPasswordRef}
+            onChange={(e) => setpassword(e.target.value)}
           />
         </label>
         <button type="button" onClick={hadleEntrar}>
